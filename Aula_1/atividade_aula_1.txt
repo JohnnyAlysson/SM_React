@@ -1,0 +1,9 @@
+Invertexto:
+https://www.invertexto.com/612aula1react
+
+um programa com 3 botoes na tela:
+Javascript
+python
+HTML
+CSS
+Ao clicar no botao , na tela aparecera uma div com informacoes sobre a linguagem(nome,descrica,nota pessoal).
