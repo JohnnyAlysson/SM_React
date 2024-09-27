@@ -1,30 +1,32 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+
+import './App.css'
 
 function App() {
-  const [primeiroNumero,setPrimeiroNumero] = useState(0);
-  const [segundoNumero,setSegundoNumero] = useState(0);
+  const [personagens,setPersonagens] = useState([])
 
-  function aumentar(){
-    setPrimeiroNumero(primeiroNumero+1)
-
-  };
+  async function buscarPersonagens(){
+    const {data} = await axios.get("https://rickandmortyapi.com/api/character")
+    console.log(data.results)
+    setPersonagens(data.results)
+  }
 
   useEffect(()=>{
-    setSegundoNumero(primeiroNumero*2)
-  },[primeiroNumero])
+    buscarPersonagens()
+  },[]) //SEMPRE QUE VOCÊ CHAMAR UM USEEFFECT E NÃO PASSAR NADA NO ARRAY DE DEPENDENCIA SIGNIFICA QUE ELE SÓ VAI ACONTECER UMA VEZ Q É QUANDO A PÁGINA CARREGA.
 
-  // useEffect(()=>{
-  //   // Efeito colateral
-  // },[`o que causa o efeito`])
-
-  return (
+    return (
     <>
-      <h1>Aula 3</h1>
-      <button onClick={aumentar}>Clique </button>
-      <p>{primeiroNumero}</p>
-      <p>{segundoNumero}</p>
+      <h1>Consumindo API usando useEffect</h1>
+      {personagens && personagens.map((element)=>(
+        <div>
+          <h2>{element.name}</h2>
+          <p>{element.status}</p>
+          <img width={150} src={element.image}/>
+        </div>
+      ))}
     </>
-    
   )
 }
 
